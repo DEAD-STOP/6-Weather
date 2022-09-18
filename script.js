@@ -15,5 +15,19 @@ async function fetchWeather(location) {
         console.error(err);
       });
   }
+async function fetchCoords(search) {
+    var apiUrl = `${apiRootUrl}/geo/1.0/direct?q=${search}&limit=5&appid=${weatherApiKey}`;
+  
+    await fetch(apiUrl)
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (data) {
+            fetchWeather(data[0]);
+      })
+      .catch(function (err) {
+        console.error(err);
+      });
+  }
 
-  fetchWeather('Austin');
+  fetchCoords('Austin');
